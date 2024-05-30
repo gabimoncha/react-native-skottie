@@ -3,6 +3,7 @@ package com.skiaskottie;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import io.github.pixee.security.BoundedLineReader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -90,7 +91,7 @@ public class DotLottieReader {
         StringBuilder stringBuilder = new StringBuilder();
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(zipInputStream))) {
           String line;
-          while ((line = bufferedReader.readLine()) != null) {
+          while ((line = BoundedLineReader.readLine(bufferedReader, 5_000_000)) != null) {
             stringBuilder.append(line);
           }
         }

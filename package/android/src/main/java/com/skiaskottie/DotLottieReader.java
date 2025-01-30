@@ -3,6 +3,7 @@ package com.skiaskottie;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import io.github.pixee.security.ZipSecurity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -73,7 +74,7 @@ public class DotLottieReader {
     long startTime = System.currentTimeMillis();
 
     // Read the zip data (dotLottie is just a zip file)
-    try (ZipInputStream zipInputStream = new ZipInputStream(in)) {
+    try (ZipInputStream zipInputStream = ZipSecurity.createHardenedInputStream(in)) {
       ZipEntry entry;
 
       // Iterate over the zip entries
